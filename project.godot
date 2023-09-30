@@ -11,7 +11,19 @@ config_version=4
 [application]
 
 config/name="LD54"
+run/main_scene="res://Scenes/MovingTruck.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Quit="*res://reused_util/Quit.gd"
+Settings="*res://reused_util/Settings.gd"
+Audio="*res://reused_util/Audio.gd"
+
+[display]
+
+window/size/width=1280
+window/size/height=720
 
 [gui]
 
