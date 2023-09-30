@@ -25,7 +25,6 @@ Audio="*res://reused_util/Audio.gd"
 window/size/width=1280
 window/size/height=720
 window/size/resizable=false
-window/size/fullscreen=true
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 window/stretch/shrink=0.99

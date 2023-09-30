@@ -37,17 +37,25 @@ var _presstime = {
 	"left": 0,
 	"right": 0,
 }
-func _process(_delta):
+func _process(delta):
 	var pos = _gridobjects.back().position
 	var change: bool = false
 
-	if Input.is_action_just_pressed("move_left") and pos.x > 0:
-		pos.x -= CELL_SIZE
-		change = true
+	if Input.is_action_pressed("move_left") and pos.x > 0:
+		if Input.is_action_just_pressed("move_left") or _presstime.left >= TIMER_INTERVAL/2:
+			pos.x -= CELL_SIZE
+			_presstime.left = 0
+			change = true
+		else:
+			_presstime.left += delta
 
-	if Input.is_action_just_pressed("move_right") and pos.x < (TRUCK_SIZE.x - 1) * CELL_SIZE: # TODO: calculate object width
-		pos.x += CELL_SIZE
-		change = true
+	if Input.is_action_pressed("move_right") and pos.x < (TRUCK_SIZE.x - 1) * CELL_SIZE: # TODO: calculate object width
+		if Input.is_action_just_pressed("move_right") or _presstime.right >= TIMER_INTERVAL/2:
+			pos.x += CELL_SIZE
+			_presstime.right = 0
+			change = true
+		else:
+			_presstime.right += delta
 
 	if change:
 		_gridobjects.back().position = pos
