@@ -3,7 +3,7 @@ extends Node
 
 export var default_setting = {
 	"audio_volume_shift": 0,
-	"window_maximized"  : true,
+	"window_maximized"  : false,
 	"window_dimensions" : OS.window_size,
 	"window_position"   : OS.window_position,
 	# Customizable settings
