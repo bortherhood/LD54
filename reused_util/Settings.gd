@@ -3,8 +3,6 @@ extends Node
 
 export var default_setting = {
 	"audio_volume_shift": 0,
-	"window_maximized"  : false,
-	"window_dimensions" : OS.window_size,
 	"window_position"   : OS.window_position,
 	# Customizable settings
 	"typing_sounds"     : true,
@@ -24,15 +22,10 @@ var file = File.new()
 func _ready():
 	load_from_file()
 
-	OS.set_window_size(setting.window_dimensions)
 	OS.set_window_position(setting.window_position)
-	OS.set_window_maximized(setting.window_maximized)
 
 	if (Quit.connect("on_quit", self, "_on_quit") != OK):
 		push_error("[Settings] Failed to connect on_quit function")
-
-	if (get_tree().get_root().connect("size_changed", self, "_save_window_values") != OK):
-		push_error("[Settings] Failed to connect window size monitor")
 
 	print("Settings Util Loaded: ", setting)
 
@@ -40,8 +33,6 @@ func _on_quit():
 	_save_window_values()
 
 func _save_window_values():
-	setting.window_dimensions = OS.window_size
-	setting.window_maximized  = OS.window_maximized
 	setting.window_position   = OS.window_position
 
 	update()
