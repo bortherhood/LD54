@@ -1,6 +1,6 @@
 extends Node2D
 
-export var CELL_SIZE = 16
+export var CELL_SIZE = 32
 export var TRUCK_SIZE: Vector2 = Vector2(12, 20)
 
 func _ready():
