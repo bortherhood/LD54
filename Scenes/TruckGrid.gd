@@ -1,5 +1,10 @@
 extends Node2D
 
+# * set_wait_time()
+# * add_object()
+#
+# * get_cell_rpos
+
 export var CELL_SIZE = 16
 export var TRUCK_SIZE: Vector2 = Vector2(24, 40)
 
@@ -22,8 +27,8 @@ func add_object(name: String):
 	var newobject = GRIDCELL.instance()
 
 	newobject.position = get_cell_rpos(2, 2)
-	newobject.set_object_type(name)
 	self.add_child(newobject)
+	newobject.set_object_type(name)
 
 	_gridobjects.append(newobject)
 
@@ -38,7 +43,8 @@ var _presstime = {
 	"right": 0,
 }
 func _process(delta):
-	var pos = _gridobjects.back().position
+	var obj = _gridobjects.back()
+	var pos = obj.position
 	var change: bool = false
 
 	if Input.is_action_pressed("move_left") and pos.x > 0:
@@ -49,7 +55,7 @@ func _process(delta):
 		else:
 			_presstime.left += delta
 
-	if Input.is_action_pressed("move_right") and pos.x < (TRUCK_SIZE.x - 1) * CELL_SIZE: # TODO: calculate object width
+	if Input.is_action_pressed("move_right") and pos.x < (TRUCK_SIZE.x - obj.get_object_size().x) * CELL_SIZE:
 		if Input.is_action_just_pressed("move_right") or _presstime.right >= TIMER_INTERVAL/2:
 			pos.x += CELL_SIZE
 			_presstime.right = 0
@@ -57,8 +63,14 @@ func _process(delta):
 		else:
 			_presstime.right += delta
 
+	if Input.is_action_just_pressed("rotate_right"):
+		obj.rotate_object(1)
+
+	if Input.is_action_just_pressed("rotate_left"):
+		obj.rotate_object(-1)
+
 	if change:
-		_gridobjects.back().position = pos
+		obj.position = pos
 
 func _on_Timer_timeout():
 	if not _gridobjects.empty():
