@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "TruckGrid",
+"language": "GDScript",
+"path": "res://Scenes/TruckGrid.gd"
+} ]
+_global_script_class_icons={
+"TruckGrid": ""
+}
+
 [application]
 
 config/name="LD54"

@@ -1,7 +1,8 @@
 extends Node2D
+class_name TruckGrid
 
-export var CELL_SIZE = 16
-export var TRUCK_SIZE: Vector2 = Vector2(10, 16)
+const CELL_SIZE = 16
+const TRUCK_SIZE: Vector2 = Vector2(10, 16)
 
 export(float, EXP, 0.1, 10, 0.1) var TIMER_INTERVAL = 0.6
 

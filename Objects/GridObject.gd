@@ -27,6 +27,8 @@ const OBJECT_TYPES = {
 func _ready():
 	rng.randomize()
 
+	# $Score.visible = false
+
 	for name in OBJECT_TYPES:
 		OBJECT_LIST.append(name)
 
@@ -57,18 +59,16 @@ func rotate_object(dir = 1, sp = spaces):
 				a[l][k] = a[k][i]
 				a[k][i] = tmp
 
-	var MOVE = get_parent().MOVE
-	var MOVERESULT = get_parent().MOVERESULT
-	var d = MOVE.check
+	var d = TruckGrid.MOVE.check
 	while true:
 		match get_parent().move_object(self, d):
-			MOVERESULT.leftbounds:
-				d = MOVE.right
-			MOVERESULT.rightbounds:
-				d = MOVE.left
-			MOVERESULT.collision:
-				d = MOVE.up
-			MOVERESULT.ok:
+			TruckGrid.MOVERESULT.leftbounds:
+				d = TruckGrid.MOVE.right
+			TruckGrid.MOVERESULT.rightbounds:
+				d = TruckGrid.MOVE.left
+			TruckGrid.MOVERESULT.collision:
+				d = TruckGrid.MOVE.up
+			TruckGrid.MOVERESULT.ok:
 				break
 
 	spaces = a
@@ -83,5 +83,8 @@ func set_object_type(name):
 	spaces = OBJECT_TYPES[name].spaces.duplicate(true)
 
 	$Texture.texture = load("res://Textures/" + OBJECT_TYPES[name].texture)
-	$Texture.rect_size         = get_parent().CELL_SIZE * get_object_size()
-	$Texture.rect_pivot_offset = get_parent().CELL_SIZE * (get_object_size() / 2)
+	$Texture.rect_size         = TruckGrid.CELL_SIZE * get_object_size()
+	$Texture.rect_pivot_offset = TruckGrid.CELL_SIZE * (get_object_size() / 2)
+
+	$Score.rect_size = $Texture.rect_size
+	$Score.rect_position = $Texture.rect_pivot_offset
