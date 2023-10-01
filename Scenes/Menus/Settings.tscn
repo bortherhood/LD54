@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://reused_util/buttonpress.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Menus/UI_Theme.tres" type="Theme" id=2]
+
+[node name="Settings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+
+[node name="CenterBox" type="CenterContainer" parent="."]
+margin_right = 640.0
+margin_bottom = 720.0
+
+[node name="VBox" type="VBoxContainer" parent="CenterBox"]
+margin_left = 128.0
+margin_top = 310.0
+margin_right = 512.0
+margin_bottom = 410.0
+rect_min_size = Vector2( 384, 0 )
+
+[node name="HSlider" type="HSlider" parent="CenterBox/VBox"]
+margin_right = 384.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+scrollable = false
+
+[node name="Back" type="Button" parent="CenterBox/VBox"]
+margin_top = 52.0
+margin_right = 384.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 48 )
+hint_tooltip = "Save settings and return to main menu"
+text = "Back"
+script = ExtResource( 1 )
+button_name = "Back"
+load_scene = "res://Scenes/Menus/MainMenu.tscn"
