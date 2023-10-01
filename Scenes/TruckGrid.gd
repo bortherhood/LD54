@@ -75,17 +75,18 @@ func move_object(obj, side = MOVE.down):
 	# Sort through other objects to detect basic cubic overlap
 	for i in range(_gridobjects.size()-1): #ignore our object
 		var o = _gridobjects[i]
-		var opos = o.object_pos
-		var osize = o.get_object_size()
+		# var opos = o.object_pos
+		# var osize = o.get_object_size()
 
-		if ((
-		pos.x >= opos.x and pos.x <= opos.x + osize.x and
-		pos.y >= opos.y and pos.y <= opos.y + osize.y
-		) or (
-		pos.x + size.x >= opos.x and pos.x + size.x <= opos.x + osize.x and
-		pos.y + size.y >= opos.y and pos.y + size.y <= opos.y + osize.y
-		)):
-			check_against.append(o)
+		# Doesn't detect all kinds of collisions, scrapping for now
+		# if ((
+		# pos.x >= opos.x and pos.x <= opos.x + osize.x and
+		# pos.y >= opos.y and pos.y <= opos.y + osize.y
+		# ) or (
+		# pos.x + size.x >= opos.x and pos.x + size.x <= opos.x + osize.x and
+		# pos.y + size.y >= opos.y and pos.y + size.y <= opos.y + osize.y
+		# )):
+		check_against.append(o)
 
 	# check if any cells overlap with another object's (using our list of basic overlaps)
 	for row in range(obj.spaces.size()):
@@ -93,17 +94,35 @@ func move_object(obj, side = MOVE.down):
 			if obj.spaces[row][col] == 1:
 				for o in check_against:
 					var s = o.get_object_size()
-					var r = row + (pos.y - o.object_pos.y) # 0
-					var c = col + (pos.x - o.object_pos.x) # 1
+					var r = row + (pos.y - o.object_pos.y)
+					var c = col + (pos.x - o.object_pos.x)
+
 					if r >= 0 and c >= 0 and r < s.y and c < s.x and o.spaces[r][c] == 1:
-						#o.get_node("ColorRect").rect_position = (Vector2(c, r) * CELL_SIZE) + Vector2((CELL_SIZE / 2) - 2, (CELL_SIZE / 2) - 2) # width 4 color rect for debug
-						#print(o.spaces)
+						# o.get_node("ColorRect").rect_position = (Vector2(c, r) * CELL_SIZE) + Vector2((CELL_SIZE / 2) - 2, (CELL_SIZE / 2) - 2) # width 4 color rect for debug
 						return false
 
 	obj.object_pos = pos
 	obj.position = get_cell_rpos(pos)
 
 	return true
+
+# @GridObject@5 - (3, 14) - 0 - 0
+# (3, 3) - -3 - -2
+# (3, 3) - -2 - -3
+# (3, 3) - -1 - -2
+# @GridObject@5 - (3, 14) - 0 - 1
+# (3, 3) - -3 - -1
+# (3, 3) - -2 - -2
+# (3, 3) - -1 - -1
+# @GridObject@5 - (3, 14) - 1 - 0
+# (3, 3) - -2 - -2
+# (3, 3) - -1 - -3
+# (3, 3) - 0 - -2
+# @GridObject@5 - (3, 14) - 2 - 0
+# (3, 3) - -1 - -2
+# (3, 3) - 0 - -3
+# (3, 3) - 1 - -2
+
 
 func _ready():
 	rng.randomize()
