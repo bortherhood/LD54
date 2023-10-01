@@ -4,7 +4,7 @@ extends Node
 export var default_setting = {
 	"audio_volume_shift": 0,
 	"window_position"   : OS.window_position,
-	# Customizable settings
+	# Customizable settings:
 	"typing_sounds"     : true,
 	"always_extra_hints": false,
 	"keybinds"          : {},
