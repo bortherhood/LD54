@@ -1,4 +1,5 @@
 extends Node2D
+class_name GridObject
 
 var rng = RandomNumberGenerator.new()
 
@@ -84,7 +85,6 @@ func set_object_type(name):
 
 	$Texture.texture = load("res://Textures/" + OBJECT_TYPES[name].texture)
 	$Texture.rect_size         = TruckGrid.CELL_SIZE * get_object_size()
-	$Texture.rect_pivot_offset = TruckGrid.CELL_SIZE * (get_object_size() / 2)
+	$Texture.rect_pivot_offset = TruckGrid.CELL_SIZE * get_object_size() / 2
 
 	$Score.rect_size = $Texture.rect_size
-	$Score.rect_position = $Texture.rect_pivot_offset

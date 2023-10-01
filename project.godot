@@ -10,11 +10,17 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "GridObject",
+"language": "GDScript",
+"path": "res://Objects/GridObject.gd"
+}, {
+"base": "Node2D",
 "class": "TruckGrid",
 "language": "GDScript",
 "path": "res://Scenes/TruckGrid.gd"
 } ]
 _global_script_class_icons={
+"GridObject": "",
 "TruckGrid": ""
 }
 
