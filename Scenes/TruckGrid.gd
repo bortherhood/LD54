@@ -37,6 +37,7 @@ var GAME_OVER = false
 func _game_over():
 	$Timer.stop()
 	GAME_OVER = true
+	Audio.play("GameOver.wav")
 	_gridobjects.pop_back().queue_free()
 
 func set_wait_time(time: float):
@@ -179,19 +180,21 @@ func _process(delta):
 
 	if Input.is_action_just_pressed("rotate_right"):
 		obj.rotate_object(1)
+		Audio.play("Rotate.wav")
 
 	if Input.is_action_just_pressed("rotate_left"):
 		obj.rotate_object(-1)
+		Audio.play("Rotate.wav")
 
 	if Input.is_action_just_pressed("next_piece"):
 		while move_object(obj, MOVE.down):
 			pass
 
-		Audio.play("Place.wav")
+		Audio.play("Place")
 		add_object(OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)])
 
 func _on_Timer_timeout():
 	if not _gridobjects.empty():
 		if not move_object(_gridobjects.back(), MOVE.down):
-			Audio.play("Place.wav")
+			Audio.play("Place")
 			add_object(OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)])
