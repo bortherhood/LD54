@@ -32,6 +32,13 @@ var GRIDCELL = load("res://Objects/GridObject.tscn")
 
 var _gridobjects = []
 
+var GAME_OVER = false
+
+func _game_over():
+	$Timer.stop()
+	GAME_OVER = true
+	_gridobjects.pop_back().queue_free()
+
 func set_wait_time(time: float):
 	$Timer.wait_time = time
 
@@ -48,10 +55,12 @@ func add_object(name: String):
 
 	newobject.set_object_type(name)
 
-	newobject.object_pos = Vector2(rng.randi_range(0, TRUCK_SIZE.x - newobject.get_object_size().x), 0)
+	newobject.object_pos = Vector2(TRUCK_SIZE.x/2 - newobject.get_object_size().x/2, (newobject.get_object_size().y - 1) * -1).round()
 	newobject.position = get_cell_rpos(newobject.object_pos)
 
 	_gridobjects.append(newobject)
+
+	move_object(newobject, MOVE.down)
 
 #returns false if it can't be moved
 func move_object(obj, side = MOVE.down):
@@ -99,6 +108,9 @@ func move_object(obj, side = MOVE.down):
 
 					if r >= 0 and c >= 0 and r < s.y and c < s.x and o.spaces[r][c] == 1:
 						# o.get_node("ColorRect").rect_position = (Vector2(c, r) * CELL_SIZE) + Vector2((CELL_SIZE / 2) - 2, (CELL_SIZE / 2) - 2) # width 4 color rect for debug
+						if pos.y <= 0:
+							_game_over()
+
 						return false
 
 	obj.object_pos = pos
@@ -140,6 +152,9 @@ var _presstime = {
 	"right": 0,
 }
 func _process(delta):
+	if GAME_OVER:
+		return
+
 	var obj = _gridobjects.back()
 
 	if Input.is_action_pressed("move_left"):
