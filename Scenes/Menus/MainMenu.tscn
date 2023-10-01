@@ -1,5 +1,72 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Menus/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Menus/UI_Theme.tres" type="Theme" id=2]
+[ext_resource path="res://reused_util/buttonpress.gd" type="Script" id=3]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="CenterBox" type="CenterContainer" parent="."]
+margin_right = 640.0
+margin_bottom = 720.0
+
+[node name="VBox" type="VBoxContainer" parent="CenterBox"]
+margin_left = 128.0
+margin_top = 239.0
+margin_right = 512.0
+margin_bottom = 481.0
+rect_min_size = Vector2( 384, 0 )
+
+[node name="HighscoreBG" type="Panel" parent="CenterBox/VBox"]
+margin_right = 384.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 384, 92 )
+
+[node name="VBox" type="VBoxContainer" parent="CenterBox/VBox/HighscoreBG"]
+margin_right = 384.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 384, 0 )
+alignment = 1
+
+[node name="TextDisplay" type="Label" parent="CenterBox/VBox/HighscoreBG/VBox"]
+margin_top = 4.0
+margin_right = 384.0
+margin_bottom = 44.0
+text = "Highscore:"
+align = 1
+
+[node name="HighscoreDisplay" type="Label" parent="CenterBox/VBox/HighscoreBG/VBox"]
+margin_top = 48.0
+margin_right = 384.0
+margin_bottom = 88.0
+align = 1
+
+[node name="Start" type="Button" parent="CenterBox/VBox"]
+margin_top = 96.0
+margin_right = 384.0
+margin_bottom = 142.0
+text = "Start"
+script = ExtResource( 3 )
+button_name = "Start"
+
+[node name="Settings" type="Button" parent="CenterBox/VBox"]
+margin_top = 146.0
+margin_right = 384.0
+margin_bottom = 192.0
+text = "Settings"
+script = ExtResource( 3 )
+button_name = "Settings"
+load_scene = "res://Scenes/Menus/Settings.tscn"
+
+[node name="Quit" type="Button" parent="CenterBox/VBox"]
+margin_top = 196.0
+margin_right = 384.0
+margin_bottom = 242.0
+disabled = true
+text = "Quit"
+script = ExtResource( 3 )
+button_name = "Quit"
