@@ -28,10 +28,18 @@ const OBJECT_TYPES = {
 func _ready():
 	rng.randomize()
 
-	# $Score.visible = false
-
 	for name in OBJECT_TYPES:
 		OBJECT_LIST.append(name)
+
+const MAX_SCORE = 1600
+func show_score(text, score):
+	$Score/Text.text = text
+	$Score.mode = $Score.MODE_RIGID
+	$Score.linear_velocity = Vector2(rng.randi_range(-60, 60), -80)
+	$Score.set("custom_colors/font_color", Color.from_hsv((score / MAX_SCORE) * 100, 100, 100)) # 0, 50, 100 | RED, YELLOW, GREEN
+
+	$Score.visible = true
+	$Score/Timer.start()
 
 func rotate_object(dir = 1, sp = spaces):
 	var a = sp
@@ -87,4 +95,9 @@ func set_object_type(name):
 	$Texture.rect_size         = TruckGrid.CELL_SIZE * get_object_size()
 	$Texture.rect_pivot_offset = TruckGrid.CELL_SIZE * get_object_size() / 2
 
-	$Score.rect_size = $Texture.rect_size
+	$Score/Text.rect_size = $Texture.rect_size * 2
+	$Score/Text.rect_position = -$Texture.rect_size/2
+
+
+func _on_Timer_timeout():
+	$Score.queue_free()

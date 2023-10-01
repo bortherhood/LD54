@@ -203,10 +203,12 @@ func _process(delta):
 			pass
 
 		Audio.play("Place")
+		_gridobjects.back().show_score("+1200 score", 1200)
 		add_object("random")
 
 func _on_Timer_timeout():
 	if not _gridobjects.empty():
 		if move_object(_gridobjects.back(), MOVE.down) == MOVERESULT.collision:
 			Audio.play("Place")
+			_gridobjects.back().show_score("+200 score", 200)
 			add_object("random")
