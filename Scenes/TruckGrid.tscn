@@ -8,8 +8,8 @@ scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
 
 [node name="Cells" type="TextureRect" parent="."]
-margin_right = 193.0
-margin_bottom = 321.0
+margin_right = 161.0
+margin_bottom = 257.0
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2

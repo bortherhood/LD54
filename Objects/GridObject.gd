@@ -1,7 +1,34 @@
 extends Node2D
 
+var rng = RandomNumberGenerator.new()
+
 export var spaces = []
 export var object_pos = Vector2()
+
+var OBJECT_LIST = []
+const OBJECT_TYPES = {
+	"chair": {
+		texture = "Chair.png",
+		spaces = [
+			[1, 0],
+			[1, 1],
+		]
+	},
+	"bed": {
+		texture = "Bed.png",
+		spaces = [
+			[0, 0, 0],
+			[1, 0, 0],
+			[1, 1, 1],
+		]
+	},
+}
+
+func _ready():
+	rng.randomize()
+
+	for name in OBJECT_TYPES:
+		OBJECT_LIST.append(name)
 
 func rotate_object(dir = 1, sp = spaces):
 	var a = sp
@@ -30,14 +57,31 @@ func rotate_object(dir = 1, sp = spaces):
 				a[l][k] = a[k][i]
 				a[k][i] = tmp
 
+	var MOVE = get_parent().MOVE
+	var MOVERESULT = get_parent().MOVERESULT
+	var d = MOVE.check
+	while true:
+		match get_parent().move_object(self, d):
+			MOVERESULT.leftbounds:
+				d = MOVE.right
+			MOVERESULT.rightbounds:
+				d = MOVE.left
+			MOVERESULT.collision:
+				d = MOVE.up
+			MOVERESULT.ok:
+				break
+
 	spaces = a
 
 func get_object_size():
 	return Vector2(spaces[0].size(), spaces.size())
 
 func set_object_type(name):
-	spaces = get_parent().OBJECT_TYPES[name].spaces.duplicate(true)
+	if name == "random":
+		name = OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)]
 
-	$Texture.texture = load("res://Textures/" + get_parent().OBJECT_TYPES[name].texture)
+	spaces = OBJECT_TYPES[name].spaces.duplicate(true)
+
+	$Texture.texture = load("res://Textures/" + OBJECT_TYPES[name].texture)
 	$Texture.rect_size         = get_parent().CELL_SIZE * get_object_size()
 	$Texture.rect_pivot_offset = get_parent().CELL_SIZE * (get_object_size() / 2)

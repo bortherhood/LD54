@@ -1,32 +1,12 @@
 extends Node2D
 
-var rng = RandomNumberGenerator.new()
-
 export var CELL_SIZE = 16
-export var TRUCK_SIZE: Vector2 = Vector2(12, 20)
-
-var OBJECT_LIST = []
-const OBJECT_TYPES = {
-	"chair": {
-		texture = "Chair.png",
-		spaces = [
-			[1, 0],
-			[1, 1],
-		]
-	},
-	"bed": {
-		texture = "Bed.png",
-		spaces = [
-			[0, 0, 0],
-			[1, 0, 0],
-			[1, 1, 1],
-		]
-	},
-}
+export var TRUCK_SIZE: Vector2 = Vector2(10, 16)
 
 export(float, EXP, 0.1, 10, 0.1) var TIMER_INTERVAL = 0.6
 
-enum MOVE {left, right, down}
+enum MOVE {left, right, down, up, check}
+enum MOVERESULT {ok, collision, leftbounds, rightbounds}
 
 var GRIDCELL = load("res://Objects/GridObject.tscn")
 
@@ -56,31 +36,67 @@ func add_object(name: String):
 
 	newobject.set_object_type(name)
 
-	newobject.object_pos = Vector2(TRUCK_SIZE.x/2 - newobject.get_object_size().x/2, (newobject.get_object_size().y - 1) * -1).round()
+	newobject.object_pos = Vector2(TRUCK_SIZE.x/2 - newobject.get_object_size().x/2, -newobject.get_object_size().y).round()
 	newobject.position = get_cell_rpos(newobject.object_pos)
 
 	_gridobjects.append(newobject)
 
-	move_object(newobject, MOVE.down)
+	newobject.visible = false
 
-#returns false if it can't be moved
+	if move_object(newobject, MOVE.check) == MOVERESULT.ok:
+		newobject.visible = true
+
 func move_object(obj, side = MOVE.down):
 	var pos = obj.object_pos
 	var size = obj.get_object_size()
 	var check_against = []
 
-	if side == MOVE.down:
-		pos.y += 1
-	elif side == MOVE.right:
-		pos.x += 1
-	elif side == MOVE.left:
-		pos.x -= 1
+	match side:
+		MOVE.down:
+			pos.y += 1
+		MOVE.up:
+			pos.y -= 1
+		MOVE.right:
+			pos.x += 1
+		MOVE.left:
+			pos.x -= 1
 
 	# Check if moved object is in bounds
-	if pos.x < 0 or pos.x + size.x > TRUCK_SIZE.x:
-		return false
-	elif pos.y + size.y > TRUCK_SIZE.y:
-		return false
+	if pos.x < -size.x:
+		return MOVERESULT.leftbounds
+	if pos.x > TRUCK_SIZE.x:
+		return MOVERESULT.rightbounds
+	if pos.y > TRUCK_SIZE.y:
+		return MOVERESULT.collision
+
+	if pos.x < 0:
+		var collide = false
+
+		for row in obj.spaces:
+			if row[-pos.x - 1] == 1:
+				collide = true
+				break
+		if collide:
+			return MOVERESULT.leftbounds
+	if pos.x + size.x > TRUCK_SIZE.x:
+		var collide = false
+
+		for row in obj.spaces:
+			if row[size.x - (pos.x + size.x - TRUCK_SIZE.x)] == 1:
+				collide = true
+				break
+		if collide:
+			return MOVERESULT.rightbounds
+
+	if pos.y + size.y > TRUCK_SIZE.y:
+		var collide = false
+
+		for col in obj.spaces[size.y - (pos.y+size.y - TRUCK_SIZE.y)]:
+			if col == 1:
+				collide = true
+				break
+		if collide:
+			return MOVERESULT.collision
 
 	# Sort through other objects to detect basic cubic overlap
 	for i in range(_gridobjects.size()-1): #ignore our object
@@ -112,12 +128,12 @@ func move_object(obj, side = MOVE.down):
 						if pos.y <= 0:
 							_game_over()
 
-						return false
+						return MOVERESULT.collision
 
 	obj.object_pos = pos
 	obj.position = get_cell_rpos(pos)
 
-	return true
+	return MOVERESULT.ok
 
 # @GridObject@5 - (3, 14) - 0 - 0
 # (3, 3) - -3 - -2
@@ -138,15 +154,10 @@ func move_object(obj, side = MOVE.down):
 
 
 func _ready():
-	rng.randomize()
-
-	for name in OBJECT_TYPES:
-		OBJECT_LIST.append(name)
-
 	$Cells.rect_size = (TRUCK_SIZE * CELL_SIZE) + Vector2(1, 1) # 1,1 fixes the grids on the right and bottom not being closed off
 	set_wait_time(TIMER_INTERVAL)
 
-	add_object(OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)])
+	add_object("random")
 
 var _presstime = {
 	"left": 0,
@@ -187,14 +198,14 @@ func _process(delta):
 		Audio.play("Rotate.wav")
 
 	if Input.is_action_just_pressed("next_piece"):
-		while move_object(obj, MOVE.down):
+		while move_object(obj, MOVE.down) == MOVERESULT.ok:
 			pass
 
 		Audio.play("Place")
-		add_object(OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)])
+		add_object("random")
 
 func _on_Timer_timeout():
 	if not _gridobjects.empty():
-		if not move_object(_gridobjects.back(), MOVE.down):
+		if move_object(_gridobjects.back(), MOVE.down) == MOVERESULT.collision:
 			Audio.play("Place")
-			add_object(OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)])
+			add_object("random")
