@@ -187,9 +187,11 @@ func _process(delta):
 		while move_object(obj, MOVE.down):
 			pass
 
+		Audio.play("Place.wav")
 		add_object(OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)])
 
 func _on_Timer_timeout():
 	if not _gridobjects.empty():
 		if not move_object(_gridobjects.back(), MOVE.down):
+			Audio.play("Place.wav")
 			add_object(OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)])

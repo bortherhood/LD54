@@ -5,10 +5,7 @@ export var default_setting = {
 	"audio_volume_shift": 0,
 	"window_position"   : OS.window_position,
 	# Customizable settings:
-	"typing_sounds"     : true,
-	"always_extra_hints": false,
 	"keybinds"          : {},
-	"current_page"      : 0,
 	"score"             : 0,
 	"highscore"         : 0,
 	"postjam"           : false,

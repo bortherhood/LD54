@@ -6,18 +6,29 @@ var sounds = {}
 
 # You can add sounds here
 func _ready():
-	pass
+	new_sound("Place.wav", 0)
 
 func new_sound(name, volume):
 	var audionode = AudioStreamPlayer.new()
 
 	audionode.volume_db = BASE_VOL + volume
-	audionode.stream = load("res://assets/" + name)
+	audionode.stream = load("res://SoundEffects/" + name)
 	sounds[name] = {"node": audionode, "playpos": 0, volume = volume}
 
 	add_child(audionode)
 
-	print("Loaded Audio")
+	print("Loaded Audio: ", name)
+
+func new_music(name, volume):
+	var audionode = AudioStreamPlayer.new()
+
+	audionode.volume_db = BASE_VOL + volume
+	audionode.stream = load("res://Music/" + name)
+	sounds[name] = {"node": audionode, "playpos": 0, volume = volume}
+
+	add_child(audionode)
+
+	print("Loaded Music: ", name)
 
 var _time = 0
 func _process(delta):
@@ -27,7 +38,7 @@ func _process(delta):
 		_time = 0
 
 		for sound in sounds:
-			sounds[sound].node.volume_db = (BASE_VOL - (Settings.audio_volume_shift / 2)) + sounds[sound].volume
+			sounds[sound].node.volume_db = (BASE_VOL - (Settings.setting.audio_volume_shift / 2)) + sounds[sound].volume
 
 func play(sound_name):
 	if sounds[sound_name]:
@@ -37,7 +48,7 @@ func play(sound_name):
 func play_low(sound_name, vol_shift):
 	if sounds[sound_name]:
 		print("Playing sound " + sound_name)
-		sounds[sound_name].node.volume_db = (BASE_VOL - (Settings.audio_volume_shift / 2)) + sounds[sound_name].volume + vol_shift
+		sounds[sound_name].node.volume_db = (BASE_VOL - (Settings.setting.audio_volume_shift / 2)) + sounds[sound_name].volume + vol_shift
 		sounds[sound_name].node.play()
 
 func resume(sound_name):
