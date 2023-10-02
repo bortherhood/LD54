@@ -202,13 +202,20 @@ func _process(delta):
 		while move_object(obj, MOVE.down) == MOVERESULT.ok:
 			pass
 
-		Audio.play("Place")
-		_gridobjects.back().show_score("+1200 score", 1200)
-		add_object("random")
+		block_land(obj.spaces)
 
 func _on_Timer_timeout():
 	if not _gridobjects.empty():
-		if move_object(_gridobjects.back(), MOVE.down) == MOVERESULT.collision:
-			Audio.play("Place")
-			_gridobjects.back().show_score("+200 score", 200)
-			add_object("random")
+		var obj = _gridobjects.back()
+		if move_object(obj, MOVE.down) == MOVERESULT.collision:
+			block_land(obj.spaces)
+
+func block_land(block_spaces: Array):
+	# First value is the base score, second value is the bonus score
+	var score_array: Array = ScoreManager.calculate_block_score(block_spaces)
+	var final_score: float = score_array[0] + score_array[1]
+	
+	Audio.play("Place")
+	
+	_gridobjects.back().show_score("+" + str(final_score) + " score", final_score)
+	add_object("random")
