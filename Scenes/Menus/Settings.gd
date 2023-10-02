@@ -1,7 +1,11 @@
 extends Control
 
+var _playblip = false
+
 func _ready():
 	$CenterBox/VBox/HSlider.value = -Settings.setting.audio_volume_shift
+
+	_playblip = true
 
 	$CenterBox/VBox/KeyChangeEntry.refresh(true)
 
@@ -11,4 +15,5 @@ func _on_HSlider_value_changed(value: float):
 		Settings.setting.audio_volume_shift = -value
 		Audio.update_volumes()
 
-		$Blip.play()
+		if _playblip:
+			$Blip.play()

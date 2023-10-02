@@ -53,6 +53,7 @@ text = "Start"
 script = ExtResource( 3 )
 button_name = "Start"
 load_scene = "res://Scenes/Game.tscn"
+signal_target = NodePath("../../..")
 
 [node name="Settings" type="Button" parent="CenterBox/VBox"]
 margin_top = 146.0
@@ -62,6 +63,7 @@ text = "Settings"
 script = ExtResource( 3 )
 button_name = "Settings"
 load_scene = "res://Scenes/Menus/Settings.tscn"
+signal_target = NodePath("../../..")
 
 [node name="Quit" type="Button" parent="CenterBox/VBox"]
 margin_top = 196.0
