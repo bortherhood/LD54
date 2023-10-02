@@ -29,11 +29,11 @@ func game_over(win: bool = false):
 
 	if not win:
 		Audio.play("GameOver.wav")
-	
+
 	emit_signal("game_over_time_remaining") # (Currently also generates scoreboard via function called in `Game)`
-	
+
 	_gridobjects.pop_back().queue_free()
-	
+
 	object_queue = []
 	emit_signal("game_over")
 
@@ -158,10 +158,11 @@ func move_object(obj, side = MOVE.down):
 
 func _ready():
 	var game_nodes: Array = get_tree().get_nodes_in_group("game_node")
-	
+
 	if game_nodes.size() == 1:
-		connect("game_over_time_remaining", game_nodes[0], "save_timekeep_value_to_score_manager")
-	
+		if connect("game_over_time_remaining", game_nodes[0], "save_timekeep_value_to_score_manager") != OK:
+			push_error("AHHHHH")
+
 	rng.randomize()
 
 	$Cells.rect_size = (TRUCK_SIZE * CELL_SIZE) + Vector2(1, 1) # 1,1 fixes the grids on the right and bottom not being closed off
@@ -174,8 +175,9 @@ func _ready():
 	add_object()
 
 var _presstime = {
-	"left": 0,
+	"left" : 0,
 	"right": 0,
+	"down" : 0,
 }
 func _process(delta):
 	if GAME_OVER:
@@ -203,6 +205,20 @@ func _process(delta):
 		else:
 			_presstime.right += delta
 
+	if Input.is_action_pressed("move_down"):
+		if Input.is_action_just_pressed("move_down"):
+			if move_object(obj, MOVE.down) == MOVERESULT.collision:
+				block_land(obj.id)
+
+			_presstime.down = TIMER_INTERVAL - 1 # 1 second before repeat starts
+		elif _presstime.down >= TIMER_INTERVAL / 4:
+			if move_object(obj, MOVE.down) == MOVERESULT.collision:
+				block_land(obj.id)
+
+			_presstime.down = 0
+		else:
+			_presstime.down += delta
+
 	if Input.is_action_just_pressed("rotate_right"):
 		obj.rotate_object(1)
 		Audio.play("Rotate.wav")
@@ -228,12 +244,12 @@ func _on_Timer_timeout():
 
 func block_land(block_id: String):
 	ScoreManager.add_block_score_to_board(block_id)
-	
+
 	Audio.play("Place")
 
 	object_queue.pop_front()
 	emit_signal("object_placed")
-	
+
 	# Need to add the complexity bonus to this equation
 	_gridobjects.back().show_score("+" + str(ScoreManager.block_id_array_size_pairs[block_id] * 100) + " score", ScoreManager.block_id_array_size_pairs[block_id] * 100)
 

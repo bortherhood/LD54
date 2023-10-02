@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Textures/GameBackground.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/TruckGrid.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Textures/ProgressUnder.png" type="Texture" id=7]
 [ext_resource path="res://Textures/ProgressOver.png" type="Texture" id=8]
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=9]
+[ext_resource path="res://reused_util/buttonpress.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/Menus/UI_Theme.tres" type="Theme" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -79,7 +81,7 @@ margin_top = 57.0
 margin_right = 448.0
 margin_bottom = 61.0
 
-[node name="Todo" type="Label" parent="Notepad/Notes"]
+[node name="Extra" type="Label" parent="Notepad/Notes"]
 margin_top = 67.0
 margin_right = 448.0
 margin_bottom = 118.0
@@ -88,6 +90,18 @@ custom_fonts/font = ExtResource( 3 )
 text = "Todo:"
 align = 1
 autowrap = true
+
+[node name="Summary" type="Button" parent="Notepad/Notes"]
+margin_left = 87.0
+margin_top = 124.0
+margin_right = 360.0
+margin_bottom = 170.0
+size_flags_horizontal = 6
+theme = ExtResource( 11 )
+text = "    See Summary    "
+script = ExtResource( 10 )
+button_name = "Summary"
+load_scene = "res://Scenes/RoundSummary/RoundSummary.tscn"
 
 [node name="TimeKeep" type="Control" parent="."]
 margin_left = 587.0

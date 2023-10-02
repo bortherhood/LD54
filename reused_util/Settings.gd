@@ -6,15 +6,17 @@ export var default_setting = {
 	"window_position"   : OS.window_position,
 	# Customizable settings:
 	"keybinds"          : {
-		"move_right": "D",
-		"move_left": "A",
+		"move_right"  : "D",
+		"move_left"   : "A",
+		"move_down"   : "S",
 		"rotate_right": "E",
-		"rotate_left": "Q",
-		"next_piece": "Space",
+		"rotate_left" : "Q",
+		"next_piece"  : "Space",
 	},
-	"score"             : 0,
-	"highscore"         : 0,
-	"postjam"           : false,
+	"score"      : 0,
+	"highscore"  : 0,
+	"difficulty" : 1,
+	"postjam"    : false,
 }
 
 export var setting: Dictionary = default_setting.duplicate(true)
