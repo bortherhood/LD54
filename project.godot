@@ -32,7 +32,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="LD54"
+config/name="Mad Dash Moving Inc."
 run/main_scene="res://Scenes/Menus/MainMenu.tscn"
 config/icon="res://icon.png"
 
