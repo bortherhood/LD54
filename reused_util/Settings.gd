@@ -59,8 +59,6 @@ func restore_defaults():
 func update():
 	file.open(FILEPATH, File.WRITE)
 
-	print(Settings.setting)
-
 	file.store_var(setting)
 
 	file.close()

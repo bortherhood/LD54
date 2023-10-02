@@ -263,20 +263,20 @@ func block_land(block_id: String):
 	var s: float = block_spaces_quantity * 100
 	if block_spaces_quantity == 2:
 		s += ScoreManager.duo_space_value
-	
+
 	# Applies to an [inclusive] range of block spaces from 3 to 6
 	elif block_spaces_quantity > 2 && block_spaces_quantity < 7:
 		s = s / 2.0 - ScoreManager.space_values_range[0]
-	
+
 	# Applies to an [inclusive] range of block spaces from 7 to 12
 	elif block_spaces_quantity > 6 && block_spaces_quantity < 13:
 		s = s / 2.0 - ScoreManager.space_values_range[1]
-	
+
 	# Applies to blocks with at least 13 spaces
 	else:
 		s = s / 2.0 - ScoreManager.space_values_range[2]
 
-	score += s
+	score += (s as int)
 	Settings.setting.highscore = max(s, Settings.setting.highscore)
 
 	Settings.update()
