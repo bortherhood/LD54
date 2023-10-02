@@ -19,7 +19,15 @@ var rng = RandomNumberGenerator.new()
 
 var _gridobjects = []
 
-var object_queue = []
+const variations = [
+	["sofa", "l_chair", "l_chair", "macuphin", "chair", "sofa", "stick_1", "stick_2", "stick_1", "macuphin", "l_chair", "chair", "sofa"],
+	["sofa", "chair", "macuphin", "coffee_or_cryogen", "stick_2", "chair", "chair", "sofa", "sofa", "l_chair", "l_chair", "sofa"],
+	["stick_1", "coffee_or_cryogen", "coffee_or_cryogen", "stick_1", "coffee_or_cryogen", "stick_1", "coffee_or_cryogen", "sofa", "chair", "sofa", "stick_1", "stick_2", "coffee_or_cryogen"],
+	["stick_1", "l_chair", "l_chair", "stick_1", "stick_1", "sofa", "l_chair", "stick_2", "chair", "l_chair", "coffee_or_cryogen", "l_chair", "sofa", "chair"],
+]
+
+var object_queue = ["sofa", "l_chair"]
+var score: int = 0
 
 var GAME_OVER = false
 
@@ -56,7 +64,7 @@ func add_object():
 	else:
 		newobject.set_object_type("random")
 
-	newobject.object_pos = Vector2(TRUCK_SIZE.x/2 - newobject.get_object_size().x/2, -newobject.get_object_size().y).round()
+	newobject.object_pos = Vector2(TRUCK_SIZE.x/2 - newobject.get_object_size().x/2, -newobject.get_object_size().y - 3).round()
 	newobject.position = get_cell_rpos(newobject.object_pos)
 
 	_gridobjects.append(newobject)
@@ -168,9 +176,10 @@ func _ready():
 	$Cells.rect_size = (TRUCK_SIZE * CELL_SIZE) + Vector2(1, 1) # 1,1 fixes the grids on the right and bottom not being closed off
 	set_wait_time(TIMER_INTERVAL)
 
-	var objects = GRIDOBJECT_I.OBJECT_TYPES.keys()
-	for _i in range(TRUCK_SIZE.x * TRUCK_SIZE.y / 4):
-		object_queue.append(objects[rng.randi_range(0, objects.size()-1)])
+	for _i in range(3):
+		var add = variations[rng.randi_range(0, variations.size()-1)]
+		for x in add:
+			object_queue.append(x)
 
 	add_object()
 
@@ -248,9 +257,17 @@ func block_land(block_id: String):
 	Audio.play("Place")
 
 	object_queue.pop_front()
-	emit_signal("object_placed")
 
 	# Need to add the complexity bonus to this equation
-	_gridobjects.back().show_score("+" + str(ScoreManager.block_id_array_size_pairs[block_id] * 100) + " score", ScoreManager.block_id_array_size_pairs[block_id] * 100)
+	var s = ScoreManager.block_id_array_size_pairs[block_id] * 100
+
+	score += s
+	Settings.setting.highscore = max(s, Settings.setting.highscore)
+
+	Settings.update()
+
+	_gridobjects.back().show_score("+" + (s as String) + " score", s)
+
+	emit_signal("object_placed")
 
 	add_object()

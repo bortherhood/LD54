@@ -13,7 +13,6 @@ export var default_setting = {
 		"rotate_left" : "Q",
 		"next_piece"  : "Space",
 	},
-	"score"      : 0,
 	"highscore"  : 0,
 	"difficulty" : 1,
 	"postjam"    : false,

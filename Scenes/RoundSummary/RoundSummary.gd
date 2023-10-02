@@ -17,12 +17,12 @@ extends CenterContainer
 
 func _ready():
 	pass
-	
+
 	set_data_var("ScoreGrandTotal", "Grand Score:", ScoreManager.finalized_score_breakdown[0])
 	set_data_var("TotalBlockNumberPlaced", "Total Items Loaded:", ScoreManager.finalized_score_breakdown[1])
 	set_data_var("TimeBonusMultiplier", "Time Bonus Multiplier:", ScoreManager.finalized_score_breakdown[3])
 	set_data_var("TotalScoreForFilledSpaces", "Score Sum:", ScoreManager.finalized_score_breakdown[4])
 
 func set_data_var(data_entry_name: String, text: String, value):
-	get_node("HBox/VBox/" + data_entry_name + "/DataName").text = text
-	get_node("HBox/VBox/" + data_entry_name + "/DataValue").text = str(value)
+	get_node("ClipboardTexture/HBox/VBox/" + data_entry_name + "/DataName").text = text
+	get_node("ClipboardTexture/HBox/VBox/" + data_entry_name + "/DataValue").text = str(value)

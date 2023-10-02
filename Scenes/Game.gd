@@ -9,6 +9,7 @@ onready var TIMELABEL = $TimeKeep/TimeLabel
 onready var TIMEKEEPER = $TimeKeep/TimeKeeper
 onready var NOTES = $Notepad/Notes
 onready var SUMMARY = $Notepad/Notes/Summary
+onready var SCORE = $Notepad/Notes/Score
 
 var UPCOMINGITEM = load("res://Objects/UpcomingItem.tscn")
 var upcoming_items = []
@@ -81,6 +82,8 @@ func update_upcoming():
 
 	for i in range(upcoming_items.size()):
 		upcoming_items[i].setup(TRUCKGRID.object_queue[i])
+
+	SCORE.text = "Score: " + (TRUCKGRID.score as String)
 
 	if $Notepad/Notes/Extra.text != "Game Over":
 		$Notepad/Notes/Extra.text = "Todo: %3d" % TRUCKGRID.object_queue.size()

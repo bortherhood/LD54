@@ -13,6 +13,9 @@ script = ExtResource( 1 )
 margin_right = 140.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 140, 30 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "nam"
+valign = 1
 
 [node name="DataValue" type="Label" parent="."]
 margin_left = 144.0
@@ -20,3 +23,6 @@ margin_top = 8.0
 margin_right = 424.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 280, 0 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "val"
+valign = 1
