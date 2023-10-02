@@ -5,7 +5,13 @@ export var default_setting = {
 	"audio_volume_shift": 0,
 	"window_position"   : OS.window_position,
 	# Customizable settings:
-	"keybinds"          : {},
+	"keybinds"          : {
+		"move_right": "D",
+		"move_left": "A",
+		"rotate_right": "E",
+		"rotate_left": "Q",
+		"next_piece": "Space",
+	},
 	"score"             : 0,
 	"highscore"         : 0,
 	"postjam"           : false,
