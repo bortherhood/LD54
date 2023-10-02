@@ -37,6 +37,10 @@ Settings="*res://reused_util/Settings.gd"
 Audio="*res://reused_util/Audio.gd"
 ScoreManager="*res://Scenes/CustomClasses/score_manager.gd"
 
+[debug]
+
+gdscript/warnings/integer_division=false
+
 [display]
 
 window/size/width=1280
