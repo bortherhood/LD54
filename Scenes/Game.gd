@@ -99,6 +99,7 @@ func update_timekeep():
 func save_timekeep_value_to_score_manager():
 	ScoreManager.score_breakdown["time_remaining"] = time_left as float
 	ScoreManager.generate_score_breakdown_array()
+	Settings.setting.highscore = max(ScoreManager.finalized_score_breakdown[0], Settings.setting.highscore)
 
 func _on_TimeKeeper_timeout():
 	if time_left <= 0:

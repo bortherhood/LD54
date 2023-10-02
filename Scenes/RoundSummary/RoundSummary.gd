@@ -20,8 +20,11 @@ func _ready():
 
 	set_data_var("ScoreGrandTotal", "Grand Score:", ScoreManager.finalized_score_breakdown[0])
 	set_data_var("TotalBlockNumberPlaced", "Total Items Loaded:", ScoreManager.finalized_score_breakdown[1])
-	set_data_var("TimeBonusMultiplier", "Time Bonus Multiplier:", ScoreManager.finalized_score_breakdown[3])
+	set_data_var("TimeRemaining", "Time Remaining:", ScoreManager.finalized_score_breakdown[2])
+	set_data_var("TimeBonusMultiplier", "Time Multiplier:", ScoreManager.finalized_score_breakdown[3])
 	set_data_var("TotalScoreForFilledSpaces", "Score Sum:", ScoreManager.finalized_score_breakdown[4])
+	set_data_var("BaseScore", "Base Value:", ScoreManager.finalized_score_breakdown[5])
+	set_data_var("BonusScore", "Complexity Bonus:", ScoreManager.finalized_score_breakdown[6])
 
 func set_data_var(data_entry_name: String, text: String, value):
 	get_node("ClipboardTexture/HBox/VBox/" + data_entry_name + "/DataName").text = text

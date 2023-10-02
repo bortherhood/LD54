@@ -49,43 +49,19 @@ margin_top = 28.0
 margin_right = 424.0
 margin_bottom = 58.0
 
-[node name="TimeBonusMultiplier" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
+[node name="TimeRemaining" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 56.0
 margin_right = 424.0
 margin_bottom = 86.0
 
-[node name="TotalScoreForFilledSpaces" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
+[node name="TimeBonusMultiplier" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 84.0
 margin_right = 424.0
 margin_bottom = 114.0
-
-[node name="DataEntry5" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
-visible = false
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 112.0
-margin_right = 424.0
-margin_bottom = 142.0
-
-[node name="DataEntry6" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
-visible = false
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 140.0
-margin_right = 424.0
-margin_bottom = 170.0
-
-[node name="DataEntry7" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
-visible = false
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 168.0
-margin_right = 424.0
-margin_bottom = 198.0
 
 [node name="DataEntry8" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
 visible = false
@@ -95,10 +71,31 @@ margin_top = 196.0
 margin_right = 424.0
 margin_bottom = 226.0
 
-[node name="MainMenu" type="Button" parent="ClipboardTexture/HBox/VBox"]
-margin_top = 322.0
+[node name="TotalScoreForFilledSpaces" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 112.0
 margin_right = 424.0
-margin_bottom = 368.0
+margin_bottom = 142.0
+
+[node name="BaseScore" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 140.0
+margin_right = 424.0
+margin_bottom = 170.0
+
+[node name="BonusScore" parent="ClipboardTexture/HBox/VBox" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 168.0
+margin_right = 424.0
+margin_bottom = 198.0
+
+[node name="MainMenu" type="Button" parent="ClipboardTexture/HBox/VBox"]
+margin_top = 364.0
+margin_right = 424.0
+margin_bottom = 410.0
 size_flags_horizontal = 5
 size_flags_vertical = 6
 theme = ExtResource( 4 )

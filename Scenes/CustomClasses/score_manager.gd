@@ -147,6 +147,6 @@ func generate_score_breakdown_array():
 		breakdown[7][block_id] = 0
 		breakdown[7][block_id] += score_breakdown["object_quantity_placed"][block_id]
 	
-	breakdown[0] = score_breakdown["block_score_total"] * breakdown[3]
+	breakdown[0] = breakdown[4] * breakdown[3]
 	
 	finalized_score_breakdown = breakdown.duplicate(true)
