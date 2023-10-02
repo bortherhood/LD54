@@ -62,7 +62,7 @@ margin_bottom = 192.0
 text = "Settings"
 script = ExtResource( 3 )
 button_name = "Settings"
-load_scene = "res://Scenes/Menus/Settings.tscn"
+load_scene = "res://Scenes/Menus/SettingsMenu.tscn"
 signal_target = NodePath("../../..")
 
 [node name="Quit" type="Button" parent="CenterBox/VBox"]

@@ -1,6 +1,5 @@
 extends Node
 
-
 export var default_setting = {
 	"audio_volume_shift": 0,
 	"window_position"   : OS.window_position,
@@ -38,6 +37,7 @@ func _ready():
 	if !Settings.setting.keybinds.empty():
 		for action in Settings.setting.keybinds.keys():
 			InputMap.add_action(action)
+
 			InputMap.action_add_event(action, _to_inputevent(OS.find_scancode_from_string(Settings.setting.keybinds[action])))
 
 	if (Quit.connect("on_quit", self, "_on_quit") != OK):
@@ -58,6 +58,8 @@ func restore_defaults():
 
 func update():
 	file.open(FILEPATH, File.WRITE)
+
+	print(Settings.setting)
 
 	file.store_var(setting)
 

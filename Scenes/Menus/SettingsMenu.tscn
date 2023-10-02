@@ -1,10 +1,10 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://reused_util/buttonpress.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Menus/UI_Theme.tres" type="Theme" id=2]
-[ext_resource path="res://Scenes/Menus/Settings.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Menus/SettingsMenu.gd" type="Script" id=2]
+[ext_resource path="res://reused_util/KeyChangeEntry.tscn" type="PackedScene" id=3]
 [ext_resource path="res://SoundEffects/VolumeCheck.wav" type="AudioStream" id=4]
-[ext_resource path="res://reused_util/KeyChangeEntry.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Menus/UI_Theme.tres" type="Theme" id=5]
 [ext_resource path="res://Fonts/Fredoka/Fredoka-VariableFont_wdth,wght.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="DynamicFont" id=15]
@@ -128,8 +128,8 @@ HSlider/styles/slider = SubResource( 13 )
 [node name="Settings" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 2 )
-script = ExtResource( 3 )
+theme = ExtResource( 5 )
+script = ExtResource( 2 )
 
 [node name="Blip" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
@@ -193,12 +193,12 @@ margin_bottom = 123.0
 margin_top = 133.0
 margin_right = 384.0
 margin_bottom = 184.0
-theme = ExtResource( 2 )
+theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 15 )
 text = "Keybinds"
 align = 1
 
-[node name="KeyChangeEntry" parent="CenterBox/VBox" instance=ExtResource( 5 )]
+[node name="KeyChangeEntry" parent="CenterBox/VBox" instance=ExtResource( 3 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
@@ -208,7 +208,7 @@ margin_bottom = 240.0
 ACTION = "move_left"
 LABEL = "Move Left"
 
-[node name="KeyChangeEntry2" parent="CenterBox/VBox" instance=ExtResource( 5 )]
+[node name="KeyChangeEntry2" parent="CenterBox/VBox" instance=ExtResource( 3 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
@@ -218,7 +218,7 @@ margin_bottom = 296.0
 ACTION = "move_right"
 LABEL = "Move Right"
 
-[node name="KeyChangeEntry6" parent="CenterBox/VBox" instance=ExtResource( 5 )]
+[node name="KeyChangeEntry6" parent="CenterBox/VBox" instance=ExtResource( 3 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
@@ -228,7 +228,7 @@ margin_bottom = 352.0
 ACTION = "move_down"
 LABEL = "Move Down"
 
-[node name="KeyChangeEntry3" parent="CenterBox/VBox" instance=ExtResource( 5 )]
+[node name="KeyChangeEntry3" parent="CenterBox/VBox" instance=ExtResource( 3 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
@@ -238,7 +238,7 @@ margin_bottom = 408.0
 ACTION = "rotate_left"
 LABEL = "Rotate Left"
 
-[node name="KeyChangeEntry4" parent="CenterBox/VBox" instance=ExtResource( 5 )]
+[node name="KeyChangeEntry4" parent="CenterBox/VBox" instance=ExtResource( 3 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
@@ -248,7 +248,7 @@ margin_bottom = 464.0
 ACTION = "rotate_right"
 LABEL = "Rotate Right"
 
-[node name="KeyChangeEntry5" parent="CenterBox/VBox" instance=ExtResource( 5 )]
+[node name="KeyChangeEntry5" parent="CenterBox/VBox" instance=ExtResource( 3 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
