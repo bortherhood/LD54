@@ -17,9 +17,14 @@ var GAME_OVER = false
 
 func _game_over():
 	$Timer.stop()
+	
 	GAME_OVER = true
 	Audio.play("GameOver.wav")
+	
+	ScoreManager.generate_score_breakdown_array()
+	
 	_gridobjects.pop_back().queue_free()
+	
 
 func set_wait_time(time: float):
 	$Timer.wait_time = time
@@ -212,11 +217,10 @@ func _on_Timer_timeout():
 			block_land(obj.id)
 
 func block_land(block_id: String):
-	# First value in score array is the base score, second value is the bonus score
-	var score_array: Array = ScoreManager.calculate_block_score(block_id)
-	var final_score: float = score_array[0] + score_array[1]
+	ScoreManager.add_block_score_to_board(block_id)
 	
 	Audio.play("Place")
 	
-	_gridobjects.back().show_score("+" + str(final_score) + " score", final_score)
+	# Need to add the complexity bonus to this equation
+	_gridobjects.back().show_score("+" + str(ScoreManager.block_id_array_size_pairs[block_id] * 100) + " score", ScoreManager.block_id_array_size_pairs[block_id] * 100)
 	add_object("random")
