@@ -25,6 +25,48 @@ const OBJECT_TYPES = {
 			[1, 1, 1],
 		]
 	},
+	"macuphin": {
+		id = "macuphin",
+		texture = "Bed.png",
+		spaces = [
+			[0, 1, 1],
+			[0, 1, 0],
+			[1, 1, 1],
+		]
+	},
+	"square": {
+		id = "square",
+		texture = "Bed.png",
+		spaces = [
+			[1, 1],
+			[1, 1],
+		]
+	},
+	"stick_1": {
+		id = "stick_1",
+		texture = "Bed.png",
+		spaces = [
+			[1],
+			[1],
+			[1],
+		]
+	},
+	"stick_2": {
+		id = "stick_2",
+		texture = "Bed.png",
+		spaces = [
+			[1, 1, 1, 1],
+		]
+	},
+	"t_junction": {
+		id = "t_junction",
+		texture = "Bed.png",
+		spaces = [
+			[0, 1],
+			[1, 1],
+			[0, 1],
+		]
+	},
 }
 
 func _ready():
