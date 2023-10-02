@@ -96,12 +96,12 @@ func generate_score_breakdown_array():
 	# Multiplier reaches approx. 1.5x by the time the stopwatch hits
 	# 180 seconds (two mins elapsed/3 left)
 	if score_breakdown["time_remaining"] <= 180:
-		score_breakdown["time_remaining_bonus_multiplier"] = time_remaining / 1000 * 8.34
+		score_breakdown["time_remaining_bonus_multiplier"] = clamp(time_remaining / 1000 * 8.34, 1.5, 2.0)
 	
 	# Multiplier reaches approx. 1.3x by the time the stopwatch hits
 	# 30 seconds (four and a half mins elapsed/half a min left)
 	elif time_remaining <= 30:
-		score_breakdown["time_remaining_bonus_multiplier"] = time_remaining / 1000 *  7.25
+		score_breakdown["time_remaining_bonus_multiplier"] = clamp(time_remaining / 1000 *  7.25, 1.3, 1.5)
 	
 	# No time bonus multiplier once you hit 30 seconds left
 	# So the default multiplier of 1x is already fine
