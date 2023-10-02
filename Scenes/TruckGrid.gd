@@ -207,7 +207,7 @@ func _process(delta):
 func _on_Timer_timeout():
 	if not _gridobjects.empty():
 		var obj = _gridobjects.back()
-		if move_object(obj, MOVE.down) == MOVERESULT.collision:
+		if move_object(obj, MOVE.down) == MOVERESULT.collision and not GAME_OVER:
 			block_land(obj.spaces)
 
 func block_land(block_spaces: Array):
