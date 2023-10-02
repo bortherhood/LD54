@@ -211,7 +211,7 @@ func _on_Timer_timeout():
 			block_land(obj.spaces)
 
 func block_land(block_spaces: Array):
-	# First value is the base score, second value is the bonus score
+	# First value in score array is the base score, second value is the bonus score
 	var score_array: Array = ScoreManager.calculate_block_score(block_spaces)
 	var final_score: float = score_array[0] + score_array[1]
 	
