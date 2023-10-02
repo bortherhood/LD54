@@ -7,7 +7,6 @@ export var id: String = ""
 export var spaces = []
 export var object_pos = Vector2()
 
-var OBJECT_LIST = []
 const OBJECT_TYPES = {
 	"chair": {
 		id = "chair",
@@ -31,11 +30,11 @@ const OBJECT_TYPES = {
 func _ready():
 	rng.randomize()
 
-	for name in OBJECT_TYPES:
-		OBJECT_LIST.append(name)
-
 const MAX_SCORE = 1320
 func show_score(text, score):
+	if not self.has_node("Score"):
+		return
+
 	var color = Color.from_hsv((score / MAX_SCORE) * 0.3, 1, 1) # h: 0, 0.5, 1.3, ..., 4 | RED, YELLOW, GREEN, etc, back to red
 
 	$Score/Text.text = text
@@ -94,7 +93,9 @@ func get_object_size():
 
 func set_object_type(name):
 	if name == "random":
-		name = OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)]
+		name = OBJECT_TYPES.keys()
+
+		name = name[rng.randi_range(0, name.size()-1)]
 
 	id = OBJECT_TYPES[name].id
 	spaces = OBJECT_TYPES[name].spaces.duplicate(true)
