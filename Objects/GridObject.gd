@@ -8,35 +8,35 @@ export var spaces = []
 export var object_pos = Vector2()
 
 const OBJECT_TYPES = {
-	"chair": {
-		id = "chair",
-		texture = "Chair.png",
+	"l_chair": {
+		id = "l_chair",
+		texture = "l_chair.png",
 		spaces = [
 			[1, 0],
 			[1, 1],
 		]
 	},
-	"bed": {
-		id = "bed",
-		texture = "Bed.png",
+	"sofa": {
+		id = "sofa",
+		texture = "sofa_l_shaped.png",
 		spaces = [
 			[0, 0, 0],
-			[1, 0, 0],
+			[0, 0, 1],
 			[1, 1, 1],
 		]
 	},
 	"macuphin": {
 		id = "macuphin",
-		texture = "Bed.png",
+		texture = "MacUphin.png",
 		spaces = [
 			[0, 1, 1],
 			[0, 1, 0],
 			[1, 1, 1],
 		]
 	},
-	"square": {
-		id = "square",
-		texture = "Bed.png",
+	"chair": {
+		id = "chair",
+		texture = "chair.png",
 		spaces = [
 			[1, 1],
 			[1, 1],
@@ -44,27 +44,30 @@ const OBJECT_TYPES = {
 	},
 	"stick_1": {
 		id = "stick_1",
-		texture = "Bed.png",
+		texture = "stick_3l.png",
 		spaces = [
-			[1],
-			[1],
-			[1],
+			[0, 1, 0],
+			[0, 1, 0],
+			[0, 1, 0],
 		]
 	},
 	"stick_2": {
 		id = "stick_2",
-		texture = "Bed.png",
+		texture = "stick_4l.png",
 		spaces = [
+			[0, 0, 0, 0],
 			[1, 1, 1, 1],
+			[0, 0, 0, 0],
+			[0, 0, 0, 0],
 		]
 	},
-	"t_junction": {
-		id = "t_junction",
-		texture = "Bed.png",
+	"coffee_or_cryogen": {
+		id = "coffee_or_cryogen",
+		texture = "coffee_or_cryogen.png",
 		spaces = [
-			[0, 1],
-			[1, 1],
-			[0, 1],
+			[0, 0, 1],
+			[0, 1, 1],
+			[0, 0, 1],
 		]
 	},
 }
