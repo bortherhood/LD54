@@ -25,6 +25,7 @@ var score_breakdown: Dictionary = {
 var finalized_score_breakdown: Array
 
 func _ready():
+	
 	for block in GridObject.OBJECT_TYPES:
 		
 		# Number of spaces the block takes up
@@ -124,7 +125,7 @@ func generate_score_breakdown_array():
 	
 	var breakdown: Array = [
 		0,
-		score_breakdown["object_quantity_placed"],
+		0,
 		
 		score_breakdown["time_remaining"],
 		score_breakdown["time_remaining_bonus_multiplier"],
@@ -134,11 +135,15 @@ func generate_score_breakdown_array():
 		score_breakdown["block_complexity_bonus"],
 		
 		{},
-		score_breakdown["object_quantity_placed"]
+		0
 	]
 	
 	# Create list of number of each type of block placed inside `breakdown` array
 	for block_id in score_breakdown["object_quantity_placed"]:
+		for block in score_breakdown["object_quantity_placed"][block_id]:
+			breakdown[1] += 1
+			breakdown[8] += 1
+		
 		breakdown[7][block_id] = 0
 		breakdown[7][block_id] += score_breakdown["object_quantity_placed"][block_id]
 	

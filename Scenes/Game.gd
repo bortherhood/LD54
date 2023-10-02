@@ -1,6 +1,6 @@
 extends Node2D
 
-export var GAME_TIME = 1 * 60
+export var GAME_TIME = 5 * 60
 export var WAIT_TIME = 5
 
 onready var TRUCKGRID = $Control/TruckGrid
@@ -85,6 +85,10 @@ func update_timekeep():
 	TIMELABEL.text = "%d:%s" % [minutes, "00" if seconds == 0 else (seconds if seconds >= 10 else "0"+(seconds as String))]
 
 	PROGRESS.value = 0.0 if time_left <= 0 else ((GAME_TIME as float)/(time_left as float) * 3.0)
+
+func save_timekeep_value_to_score_manager():
+	ScoreManager.score_breakdown["time_remaining"] = time_left as float
+	ScoreManager.generate_score_breakdown_array()
 
 func _on_TimeKeeper_timeout():
 	if time_left <= 0:

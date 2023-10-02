@@ -2,6 +2,7 @@ extends Node2D
 class_name TruckGrid
 
 signal object_placed
+signal game_over_time_remaining
 signal game_over
 
 const CELL_SIZE = 16
@@ -29,7 +30,7 @@ func game_over(win: bool = false):
 	if not win:
 		Audio.play("GameOver.wav")
 	
-	ScoreManager.generate_score_breakdown_array()
+	emit_signal("game_over_time_remaining") # (Currently also generates scoreboard via function called in `Game)`
 	
 	_gridobjects.pop_back().queue_free()
 	
@@ -156,6 +157,11 @@ func move_object(obj, side = MOVE.down):
 	return MOVERESULT.ok
 
 func _ready():
+	var game_nodes: Array = get_tree().get_nodes_in_group("game_node")
+	
+	if game_nodes.size() == 1:
+		connect("game_over_time_remaining", game_nodes[0], "save_timekeep_value_to_score_manager")
+	
 	rng.randomize()
 
 	$Cells.rect_size = (TRUCK_SIZE * CELL_SIZE) + Vector2(1, 1) # 1,1 fixes the grids on the right and bottom not being closed off
