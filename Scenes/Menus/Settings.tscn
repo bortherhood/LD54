@@ -140,9 +140,9 @@ margin_bottom = 720.0
 
 [node name="VBox" type="VBoxContainer" parent="CenterBox"]
 margin_left = 128.0
-margin_top = 92.0
+margin_top = 64.0
 margin_right = 512.0
-margin_bottom = 628.0
+margin_bottom = 656.0
 rect_min_size = Vector2( 384, 0 )
 custom_constants/separation = 10
 
@@ -161,6 +161,27 @@ rect_min_size = Vector2( 0, 48 )
 theme = SubResource( 14 )
 min_value = -30.0
 max_value = 30.0
+scrollable = false
+
+[node name="Label3" type="Label" parent="CenterBox/VBox"]
+visible = false
+margin_top = 119.0
+margin_right = 384.0
+margin_bottom = 170.0
+custom_fonts/font = SubResource( 15 )
+text = "- Game Difficulty +"
+align = 1
+
+[node name="Difficulty" type="HSlider" parent="CenterBox/VBox"]
+visible = false
+margin_top = 119.0
+margin_right = 384.0
+margin_bottom = 167.0
+rect_min_size = Vector2( 0, 48 )
+theme = SubResource( 14 )
+max_value = 3.0
+step = 0.5
+value = 1.0
 scrollable = false
 
 [node name="HSeparator" type="HSeparator" parent="CenterBox/VBox"]
@@ -197,13 +218,23 @@ margin_bottom = 296.0
 ACTION = "move_right"
 LABEL = "Move Right"
 
-[node name="KeyChangeEntry3" parent="CenterBox/VBox" instance=ExtResource( 5 )]
+[node name="KeyChangeEntry6" parent="CenterBox/VBox" instance=ExtResource( 5 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
 margin_top = 306.0
 margin_right = 384.0
 margin_bottom = 352.0
+ACTION = "move_down"
+LABEL = "Move Down"
+
+[node name="KeyChangeEntry3" parent="CenterBox/VBox" instance=ExtResource( 5 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
+margin_top = 362.0
+margin_right = 384.0
+margin_bottom = 408.0
 ACTION = "rotate_left"
 LABEL = "Rotate Left"
 
@@ -211,9 +242,9 @@ LABEL = "Rotate Left"
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
-margin_top = 362.0
+margin_top = 418.0
 margin_right = 384.0
-margin_bottom = 408.0
+margin_bottom = 464.0
 ACTION = "rotate_right"
 LABEL = "Rotate Right"
 
@@ -221,21 +252,21 @@ LABEL = "Rotate Right"
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 0.0
-margin_top = 418.0
+margin_top = 474.0
 margin_right = 384.0
-margin_bottom = 464.0
+margin_bottom = 520.0
 ACTION = "next_piece"
 LABEL = "Place"
 
 [node name="HSeparator2" type="HSeparator" parent="CenterBox/VBox"]
-margin_top = 474.0
+margin_top = 530.0
 margin_right = 384.0
-margin_bottom = 478.0
+margin_bottom = 534.0
 
 [node name="Back" type="Button" parent="CenterBox/VBox"]
-margin_top = 488.0
+margin_top = 544.0
 margin_right = 384.0
-margin_bottom = 536.0
+margin_bottom = 592.0
 rect_min_size = Vector2( 0, 48 )
 hint_tooltip = "Save settings and return to main menu"
 text = "Back"
@@ -244,3 +275,4 @@ button_name = "Back"
 load_scene = "res://Scenes/Menus/MainMenu.tscn"
 
 [connection signal="value_changed" from="CenterBox/VBox/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="CenterBox/VBox/Difficulty" to="." method="_on_Difficulty_value_changed"]

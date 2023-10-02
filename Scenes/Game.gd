@@ -8,6 +8,7 @@ onready var PROGRESS  = $TimeKeep/Progress
 onready var TIMELABEL = $TimeKeep/TimeLabel
 onready var TIMEKEEPER = $TimeKeep/TimeKeeper
 onready var NOTES = $Notepad/Notes
+onready var SUMMARY = $Notepad/Notes/Summary
 
 var UPCOMINGITEM = load("res://Objects/UpcomingItem.tscn")
 var upcoming_items = []
@@ -20,6 +21,7 @@ func _ready():
 	rng.randomize()
 
 	$UncheckTimer.wait_time = WAIT_TIME
+	SUMMARY.visible = false
 
 	update_timekeep()
 
@@ -38,6 +40,10 @@ func _ready():
 
 func _game_over():
 	$TimeKeep/TimeKeeper.stop()
+
+	$Notepad/Notes/Extra.text = "Game Over"
+
+	SUMMARY.visible = true
 
 var _latest_update = 0
 func _update_upcoming(no_timer: bool = false):
@@ -76,7 +82,8 @@ func update_upcoming():
 	for i in range(upcoming_items.size()):
 		upcoming_items[i].setup(TRUCKGRID.object_queue[i])
 
-	$Notepad/Notes/Todo.text = "Todo: %3d" % TRUCKGRID.object_queue.size()
+	if $Notepad/Notes/Extra.text != "Game Over":
+		$Notepad/Notes/Extra.text = "Todo: %3d" % TRUCKGRID.object_queue.size()
 
 func update_timekeep():
 	var seconds = time_left % 60
@@ -99,7 +106,6 @@ func _on_TimeKeeper_timeout():
 	time_left -= 1
 
 	update_timekeep()
-
 
 func _on_UncheckTimer_timeout():
 	for i in _latest_update:

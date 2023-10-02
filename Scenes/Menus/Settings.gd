@@ -4,6 +4,7 @@ var _playblip = false
 
 func _ready():
 	$CenterBox/VBox/HSlider.value = -Settings.setting.audio_volume_shift
+	$CenterBox/VBox/Difficulty.value = Settings.setting.difficulty
 
 	_playblip = true
 
@@ -17,3 +18,8 @@ func _on_HSlider_value_changed(value: float):
 
 		if _playblip:
 			$Blip.play()
+
+func _on_Difficulty_value_changed(value:float):
+	Settings.setting.difficulty = value
+
+	Settings.update()
