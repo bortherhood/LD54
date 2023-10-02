@@ -1,6 +1,4 @@
-extends Reference
-
-class_name ScoreManager
+extends Node
 
 # The score bonus for n amount of spaces a block occupies
 # Seperated into 3 formulas, plus a direct value for blocks of 2 spaces.
@@ -13,6 +11,7 @@ class_name ScoreManager
 var duo_space_value: int = 45
 var space_values_range: Array = [50, 35, 20]
 
+var blocks_spaces_array_size_pairs: Dictionary = {}
 var score_breakdown: Dictionary = {
 	"blocks": {},
 	"time": {}
@@ -33,13 +32,23 @@ func _ready():
 		# Only saves for the first found, as the object's *arrangement* of spaces
 		# doesn't matter
 		if not score_breakdown.has(block_size):
-			score_breakdown[block_size] = []
+			score_breakdown[block_size] = 0
+		
+		if not blocks_spaces_array_size_pairs.has(GridObject.OBJECT_TYPES[block].spaces):
+			blocks_spaces_array_size_pairs[GridObject.OBJECT_TYPES[block].spaces] = block_size
+	
+	print("BSPSBS: ", blocks_spaces_array_size_pairs)
 
+# Takes a block spaces array and checks the `blocks_spaces_array_size_pairs`
+# dictionary to quickly find the saved space *quantity* for the given
+# block spaces array "fingerprint"
+#
 # Returns an array, with the first value being the base score...
 # and the second being the bonus score
 # Also increases the counter in `score_breakdown` for the number of spaces
 # the given block has.
-func calculate_block_score(block_spaces_quantity: int) -> Array:
+func calculate_block_score(block_spaces_array: Array) -> Array:
+	var block_spaces_quantity: int = blocks_spaces_array_size_pairs[block_spaces_array]
 	# Used to store the base score value of block for calculation purposes
 	var base_value: int = block_spaces_quantity * 100
 	
@@ -72,10 +81,15 @@ func calculate_block_score(block_spaces_quantity: int) -> Array:
 	else:
 		return [base_value, base_value / 2 - space_values_range[2]]
 
+# Takes a block spaces array and checks the `blocks_spaces_array_size_pairs`
+# dictionary to quickly find the saved space *quantity* for the given
+# block spaces array "fingerprint"
+#
 # Returns an int that is the sum of the base score and block spaces bonus
 # Also increases the counter in `score_breakdown` for the number of spaces
 # the given block has.
-func calculate_block_score_int(block_spaces_quantity: int) -> int:
+func calculate_block_score_int(block_spaces_array: Array) -> int:
+	var block_spaces_quantity: int = blocks_spaces_array_size_pairs[block_spaces_array]
 	# Used to store the base score value of block for calculation purposes
 	var base_value: int = block_spaces_quantity * 100
 	

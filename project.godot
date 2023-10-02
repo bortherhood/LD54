@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/GridObject.gd"
 }, {
-"base": "Reference",
-"class": "ScoreManager",
-"language": "GDScript",
-"path": "res://Scenes/CustomClasses/score_manager.gd"
-}, {
 "base": "Node2D",
 "class": "TruckGrid",
 "language": "GDScript",
@@ -26,7 +21,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "GridObject": "",
-"ScoreManager": "",
 "TruckGrid": ""
 }
 
@@ -41,6 +35,7 @@ config/icon="res://icon.png"
 Quit="*res://reused_util/Quit.gd"
 Settings="*res://reused_util/Settings.gd"
 Audio="*res://reused_util/Audio.gd"
+ScoreManager="*res://Scenes/CustomClasses/score_manager.gd"
 
 [display]
 
