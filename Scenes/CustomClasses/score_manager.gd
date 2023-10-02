@@ -11,7 +11,7 @@ extends Node
 var duo_space_value: int = 45
 var space_values_range: Array = [50, 35, 20]
 
-var blocks_spaces_array_size_pairs: Dictionary = {}
+var block_id_array_size_pairs: Dictionary = {}
 var score_breakdown: Dictionary = {
 	"blocks": {},
 	"time": {}
@@ -34,10 +34,8 @@ func _ready():
 		if not score_breakdown.has(block_size):
 			score_breakdown[block_size] = 0
 		
-		if not blocks_spaces_array_size_pairs.has(GridObject.OBJECT_TYPES[block].spaces):
-			blocks_spaces_array_size_pairs[GridObject.OBJECT_TYPES[block].spaces] = block_size
-	
-	print("BSPSBS: ", blocks_spaces_array_size_pairs)
+		if not block_id_array_size_pairs.has(GridObject.OBJECT_TYPES[block].id):
+			block_id_array_size_pairs[GridObject.OBJECT_TYPES[block].id] = block_size
 
 # Takes a block spaces array and checks the `blocks_spaces_array_size_pairs`
 # dictionary to quickly find the saved space *quantity* for the given
@@ -47,8 +45,8 @@ func _ready():
 # and the second being the bonus score
 # Also increases the counter in `score_breakdown` for the number of spaces
 # the given block has.
-func calculate_block_score(block_spaces_array: Array) -> Array:
-	var block_spaces_quantity: int = blocks_spaces_array_size_pairs[block_spaces_array]
+func calculate_block_score(block_id: String) -> Array:
+	var block_spaces_quantity: int = block_id_array_size_pairs[block_id]
 	# Used to store the base score value of block for calculation purposes
 	var base_value: int = block_spaces_quantity * 100
 	
@@ -88,8 +86,8 @@ func calculate_block_score(block_spaces_array: Array) -> Array:
 # Returns an int that is the sum of the base score and block spaces bonus
 # Also increases the counter in `score_breakdown` for the number of spaces
 # the given block has.
-func calculate_block_score_int(block_spaces_array: Array) -> int:
-	var block_spaces_quantity: int = blocks_spaces_array_size_pairs[block_spaces_array]
+func calculate_block_score_int(block_id: String) -> int:
+	var block_spaces_quantity: int = block_id_array_size_pairs[block_id]
 	# Used to store the base score value of block for calculation purposes
 	var base_value: int = block_spaces_quantity * 100
 	

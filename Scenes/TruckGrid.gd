@@ -203,17 +203,17 @@ func _process(delta):
 		while move_object(obj, MOVE.down) == MOVERESULT.ok:
 			pass
 
-		block_land(obj.spaces)
+		block_land(obj.id)
 
 func _on_Timer_timeout():
 	if not _gridobjects.empty():
 		var obj = _gridobjects.back()
 		if move_object(obj, MOVE.down) == MOVERESULT.collision and not GAME_OVER:
-			block_land(obj.spaces)
+			block_land(obj.id)
 
-func block_land(block_spaces: Array):
+func block_land(block_id: String):
 	# First value in score array is the base score, second value is the bonus score
-	var score_array: Array = ScoreManager.calculate_block_score(block_spaces)
+	var score_array: Array = ScoreManager.calculate_block_score(block_id)
 	var final_score: float = score_array[0] + score_array[1]
 	
 	Audio.play("Place")

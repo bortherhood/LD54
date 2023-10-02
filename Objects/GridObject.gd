@@ -3,12 +3,14 @@ class_name GridObject
 
 var rng = RandomNumberGenerator.new()
 
+export var id: String = ""
 export var spaces = []
 export var object_pos = Vector2()
 
 var OBJECT_LIST = []
 const OBJECT_TYPES = {
 	"chair": {
+		id = "chair",
 		texture = "Chair.png",
 		spaces = [
 			[1, 0],
@@ -16,6 +18,7 @@ const OBJECT_TYPES = {
 		]
 	},
 	"bed": {
+		id = "bed",
 		texture = "Bed.png",
 		spaces = [
 			[0, 0, 0],
@@ -93,6 +96,7 @@ func set_object_type(name):
 	if name == "random":
 		name = OBJECT_LIST[rng.randi_range(0, OBJECT_LIST.size()-1)]
 
+	id = OBJECT_TYPES[name].id
 	spaces = OBJECT_TYPES[name].spaces.duplicate(true)
 
 	$Texture.texture = load("res://Textures/" + OBJECT_TYPES[name].texture)
