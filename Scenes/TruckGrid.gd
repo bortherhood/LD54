@@ -105,7 +105,8 @@ func move_object(obj, side = MOVE.down):
 		# var opos = o.object_pos
 		# var osize = o.get_object_size()
 
-		# Doesn't detect all kinds of collisions, scrapping for now
+		#### Doesn't detect all kinds of collisions, scrapping for now
+
 		# if ((
 		# pos.x >= opos.x and pos.x <= opos.x + osize.x and
 		# pos.y >= opos.y and pos.y <= opos.y + osize.y

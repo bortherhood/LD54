@@ -5,9 +5,8 @@
 [ext_resource path="res://Fonts/Fredoka/Fredoka-VariableFont_wdth,wght.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
-size = 24
-outline_size = 2
-outline_color = Color( 0, 0, 0, 1 )
+size = 32
+outline_size = 1
 font_data = ExtResource( 3 )
 
 [node name="GridObject" type="Node2D"]
@@ -33,8 +32,10 @@ margin_left = -24.0
 margin_top = -24.0
 margin_right = 72.0
 margin_bottom = 72.0
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_color = Color( 0.0500001, 1, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 1, 0.15, 1 )
 custom_fonts/font = SubResource( 1 )
+text = "asdf"
 align = 1
 valign = 1
 

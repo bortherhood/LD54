@@ -22,10 +22,22 @@ export var setting: Dictionary = default_setting.duplicate(true)
 const FILEPATH = "user://settings.json"
 var file = File.new()
 
+func _to_inputevent(x):
+	var out = InputEventKey.new()
+
+	out.set_scancode(x)
+
+	return out
+
 func _ready():
 	load_from_file()
 
 	OS.set_window_position(setting.window_position)
+
+	if !Settings.setting.keybinds.empty():
+		for action in Settings.setting.keybinds.keys():
+			InputMap.add_action(action)
+			InputMap.action_add_event(action, _to_inputevent(OS.find_scancode_from_string(Settings.setting.keybinds[action])))
 
 	if (Quit.connect("on_quit", self, "_on_quit") != OK):
 		push_error("[Settings] Failed to connect on_quit function")

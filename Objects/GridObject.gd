@@ -31,12 +31,16 @@ func _ready():
 	for name in OBJECT_TYPES:
 		OBJECT_LIST.append(name)
 
-const MAX_SCORE = 1600
+const MAX_SCORE = 1320
 func show_score(text, score):
+	var color = Color.from_hsv((score / MAX_SCORE) * 0.3, 1, 1) # h: 0, 0.5, 1.3, ..., 4 | RED, YELLOW, GREEN, etc, back to red
+
 	$Score/Text.text = text
+	$Score/Text.set("custom_colors/font_color",            color)
+	$Score/Text.set("custom_colors/font_outline_modulate", color.darkened(0.4))
+
 	$Score.mode = $Score.MODE_RIGID
-	$Score.linear_velocity = Vector2(rng.randi_range(-60, 60), -80)
-	$Score.set("custom_colors/font_color", Color.from_hsv((score / MAX_SCORE) * 100, 100, 100)) # 0, 50, 100 | RED, YELLOW, GREEN
+	$Score.linear_velocity = Vector2(rng.randi_range(-60, 60), -70)
 
 	$Score.visible = true
 	$Score/Timer.start()
