@@ -16,9 +16,7 @@ extends CenterContainer
 # 8 = total blocks placed
 
 func _ready():
-	# 0 = total blocks placed
-	# 1 = time remaining bonus multiplier
-	# 2 = score grand total
+	pass
 	
 	set_data_var("ScoreGrandTotal", "Grand Score:", ScoreManager.finalized_score_breakdown[0])
 	set_data_var("TotalBlockNumberPlaced", "Total Items Loaded:", ScoreManager.finalized_score_breakdown[1])
