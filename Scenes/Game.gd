@@ -76,6 +76,8 @@ func update_upcoming():
 	for i in range(upcoming_items.size()):
 		upcoming_items[i].setup(TRUCKGRID.object_queue[i])
 
+	$Notepad/Notes/Todo.text = "Todo: %3d" % TRUCKGRID.object_queue.size()
+
 func update_timekeep():
 	var seconds = time_left % 60
 	var minutes = (time_left - seconds) / 60
