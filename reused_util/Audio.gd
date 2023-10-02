@@ -55,19 +55,13 @@ func new_music(name, volume):
 
 	print("Loaded Music: ", name)
 
-var _time = 0
-func _process(delta):
-	_time += delta
-
-	if _time >= 0.5:
-		_time = 0
-
-		for sound in sounds:
-			if "node" in sounds[sound]:
-				sounds[sound].node.volume_db = (BASE_VOL - (Settings.setting.audio_volume_shift / 2)) + sounds[sound].volume
-			else:
-				for i in range(sounds[sound].nodes.size()):
-					sounds[sound].nodes[i].volume_db = (BASE_VOL - (Settings.setting.audio_volume_shift / 2)) + sounds[sound].volumes[i]
+func update_volumes():
+	for sound in sounds:
+		if "node" in sounds[sound]:
+			sounds[sound].node.volume_db = (BASE_VOL - (Settings.setting.audio_volume_shift / 2)) + sounds[sound].volume
+		else:
+			for i in range(sounds[sound].nodes.size()):
+				sounds[sound].nodes[i].volume_db = (BASE_VOL - (Settings.setting.audio_volume_shift / 2)) + sounds[sound].volumes[i]
 
 func play(sound_name):
 	if sounds[sound_name]:

@@ -208,7 +208,7 @@ func _process(delta):
 
 func _on_Timer_timeout():
 	if not _gridobjects.empty():
-		if move_object(_gridobjects.back(), MOVE.down) == MOVERESULT.collision:
+		if move_object(_gridobjects.back(), MOVE.down) == MOVERESULT.collision and not GAME_OVER:
 			Audio.play("Place")
 			_gridobjects.back().show_score("+200 score", 200)
 			add_object("random")
