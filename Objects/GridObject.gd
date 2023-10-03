@@ -36,7 +36,7 @@ const OBJECT_TYPES = {
 	},
 	"chair": {
 		id = "chair",
-		texture = "chair.png",
+		texture = "Chair.png",
 		spaces = [
 			[1, 1],
 			[1, 1],
